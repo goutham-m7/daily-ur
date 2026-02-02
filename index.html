@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Statistics Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .chart-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15);
+        }
+        .toggle-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">Monthly Statistics Dashboard</h1>
+                    <p class="mt-1 text-sm text-gray-500">March 2024 - January 2026 • 23 months of data</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-sm text-gray-600 mr-2">Chart Type:</span>
+                    <button id="globalLineBtn" onclick="setGlobalChartType('line')" class="toggle-btn active px-4 py-2 rounded-lg text-sm font-medium border border-gray-300 transition-all">
+                        Line
+                    </button>
+                    <button id="globalBarBtn" onclick="setGlobalChartType('bar')" class="toggle-btn px-4 py-2 rounded-lg text-sm font-medium border border-gray-300 transition-all bg-white text-gray-700">
+                        Bar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Summary Statistics -->
+        <div id="summaryStats" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <!-- Cards will be injected here -->
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Chart 1: Total L2/L1 cases -->
+            <div class="chart-card bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-semibold text-gray-800">Total L2/L1 Cases</h2>
+                    <div class="flex gap-1">
+                        <button onclick="toggleChartType(0, 'line')" class="chart-toggle-0 toggle-btn active px-3 py-1 rounded-md text-xs font-medium border border-gray-200 transition-all">Line</button>
+                        <button onclick="toggleChartType(0, 'bar')" class="chart-toggle-0 toggle-btn px-3 py-1 rounded-md text-xs font-medium border border-gray-200 transition-all bg-white text-gray-600">Bar</button>
+                    </div>
+                </div>
+                <div id="chart0" class="w-full"></div>
+            </div>
+
+            <!-- Chart 2: COLA(ALL)+LI(CLGR) -->
+            <div class="chart-card bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-semibold text-gray-800">COLA(ALL) + LI(CLGR)</h2>
+                    <div class="flex gap-1">
+                        <button onclick="toggleChartType(1, 'line')" class="chart-toggle-1 toggle-btn active px-3 py-1 rounded-md text-xs font-medium border border-gray-200 transition-all">Line</button>
+                        <button onclick="toggleChartType(1, 'bar')" class="chart-toggle-1 toggle-btn px-3 py-1 rounded-md text-xs font-medium border border-gray-200 transition-all bg-white text-gray-600">Bar</button>
+                    </div>
+                </div>
+                <div id="chart1" class="w-full"></div>
+            </div>
+
+            <!-- Chart 3: BM UR -->
+            <div class="chart-card bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-semibold text-gray-800">BM UR</h2>
+                    <div class="flex gap-1">
+                        <button onclick="toggleChartType(2, 'line')" class="chart-toggle-2 toggle-btn active px-3 py-1 rounded-md text-xs font-medium border border-gray-200 transition-all">Line</button>
+                        <button onclick="toggleChartType(2, 'bar')" class="chart-toggle-2 toggle-btn px-3 py-1 rounded-md text-xs font-medium border border-gray-200 transition-all bg-white text-gray-600">Bar</button>
+                    </div>
+                </div>
+                <div id="chart2" class="w-full"></div>
+            </div>
+
+            <!-- Chart 4: BM IMR -->
+            <div class="chart-card bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-semibold text-gray-800">BM IMR</h2>
+                    <div class="flex gap-1">
+                        <button onclick="toggleChartType(3, 'line')" class="chart-toggle-3 toggle-btn active px-3 py-1 rounded-md text-xs font-medium border border-gray-200 transition-all">Line</button>
+                        <button onclick="toggleChartType(3, 'bar')" class="chart-toggle-3 toggle-btn px-3 py-1 rounded-md text-xs font-medium border border-gray-200 transition-all bg-white text-gray-600">Bar</button>
+                    </div>
+                </div>
+                <div id="chart3" class="w-full"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <p class="text-center text-sm text-gray-500">Data visualization powered by ApexCharts</p>
+        </div>
+    </footer>
+
+    <script>
+        // Embedded CSV Data (reversed to show oldest first for better time series visualization)
+        const rawData = [
+            { time: "Mar 2024", l2l1: 959, cola: 804, bmur: 192, bmimr: 66 },
+            { time: "Apr 2024", l2l1: 866, cola: 184, bmur: 211, bmimr: 52 },
+            { time: "May 2024", l2l1: 1087, cola: 404, bmur: 191, bmimr: 52 },
+            { time: "Jun 2024", l2l1: 951, cola: 452, bmur: 188, bmimr: 28 },
+            { time: "Jul 2024", l2l1: 1151, cola: 1179, bmur: 179, bmimr: 74 },
+            { time: "Aug 2024", l2l1: 1197, cola: 1672, bmur: 182, bmimr: 60 },
+            { time: "Sep 2024", l2l1: 869, cola: 1005, bmur: 167, bmimr: 39 },
+            { time: "Oct 2024", l2l1: 835, cola: 691, bmur: 215, bmimr: 51 },
+            { time: "Nov 2024", l2l1: 810, cola: 1115, bmur: 207, bmimr: 43 },
+            { time: "Dec 2024", l2l1: 843, cola: 2037, bmur: 190, bmimr: 64 },
+            { time: "Jan 2025", l2l1: 777, cola: 1604, bmur: 164, bmimr: 47 },
+            { time: "Feb 2025", l2l1: 694, cola: 1743, bmur: 186, bmimr: 40 },
+            { time: "Mar 2025", l2l1: 795, cola: 2171, bmur: 187, bmimr: 50 },
+            { time: "Apr 2025", l2l1: 703, cola: 2091, bmur: 241, bmimr: 65 },
+            { time: "May 2025", l2l1: 575, cola: 2248, bmur: 203, bmimr: 48 },
+            { time: "Jun 2025", l2l1: 642, cola: 1594, bmur: 167, bmimr: 51 },
+            { time: "Jul 2025", l2l1: 717, cola: 2023, bmur: 149, bmimr: 45 },
+            { time: "Aug 2025", l2l1: 595, cola: 1261, bmur: 179, bmimr: 44 },
+            { time: "Sep 2025", l2l1: 598, cola: 1819, bmur: 173, bmimr: 49 },
+            { time: "Oct 2025", l2l1: 787, cola: 2150, bmur: 208, bmimr: 41 },
+            { time: "Nov 2025", l2l1: 776, cola: 1888, bmur: 159, bmimr: 33 },
+            { time: "Dec 2025", l2l1: 914, cola: 2660, bmur: 186, bmimr: 55 },
+            { time: "Jan 2026", l2l1: 672, cola: 1970, bmur: 190, bmimr: 42 }
+        ];
+
+        // Extract data arrays
+        const categories = rawData.map(d => d.time);
+        const datasets = [
+            { name: "Total L2/L1 Cases", data: rawData.map(d => d.l2l1), color: "#6366f1" },
+            { name: "COLA(ALL) + LI(CLGR)", data: rawData.map(d => d.cola), color: "#8b5cf6" },
+            { name: "BM UR", data: rawData.map(d => d.bmur), color: "#06b6d4" },
+            { name: "BM IMR", data: rawData.map(d => d.bmimr), color: "#10b981" }
+        ];
+
+        // Calculate statistics
+        function calcStats(arr) {
+            const min = Math.min(...arr);
+            const max = Math.max(...arr);
+            const avg = Math.round(arr.reduce((a, b) => a + b, 0) / arr.length);
+            const latest = arr[arr.length - 1];
+            const previous = arr[arr.length - 2];
+            const change = ((latest - previous) / previous * 100).toFixed(1);
+            return { min, max, avg, latest, change };
+        }
+
+        // Render summary statistics
+        function renderSummaryStats() {
+            const container = document.getElementById('summaryStats');
+            const icons = [
+                `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>`,
+                `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>`,
+                `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>`,
+                `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>`
+            ];
+
+            const shortNames = ["L2/L1 Cases", "COLA+LI", "BM UR", "BM IMR"];
+
+            container.innerHTML = datasets.map((ds, i) => {
+                const stats = calcStats(ds.data);
+                const changeColor = parseFloat(stats.change) >= 0 ? 'text-green-600' : 'text-red-600';
+                const changeIcon = parseFloat(stats.change) >= 0 ? '↑' : '↓';
+
+                return `
+                    <div class="bg-white rounded-xl shadow-md p-5 border border-gray-100 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="p-2 rounded-lg" style="background-color: ${ds.color}20; color: ${ds.color}">
+                                ${icons[i]}
+                            </div>
+                            <span class="${changeColor} text-sm font-semibold">${changeIcon} ${Math.abs(stats.change)}%</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900">${stats.latest.toLocaleString()}</h3>
+                        <p class="text-sm text-gray-500 mb-3">${shortNames[i]}</p>
+                        <div class="flex justify-between text-xs text-gray-400 border-t pt-3">
+                            <span>Min: <strong class="text-gray-600">${stats.min.toLocaleString()}</strong></span>
+                            <span>Avg: <strong class="text-gray-600">${stats.avg.toLocaleString()}</strong></span>
+                            <span>Max: <strong class="text-gray-600">${stats.max.toLocaleString()}</strong></span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Chart instances
+        let charts = [];
+        let chartTypes = ['line', 'line', 'line', 'line'];
+
+        // Create chart options
+        function getChartOptions(index, type) {
+            const ds = datasets[index];
+            return {
+                series: [{
+                    name: ds.name,
+                    data: ds.data
+                }],
+                chart: {
+                    type: type,
+                    height: 300,
+                    toolbar: {
+                        show: true,
+                        tools: {
+                            download: true,
+                            selection: true,
+                            zoom: true,
+                            zoomin: true,
+                            zoomout: true,
+                            pan: true,
+                            reset: true
+                        }
+                    },
+                    animations: {
+                        enabled: true,
+                        easing: 'easeinout',
+                        speed: 800,
+                        animateGradually: {
+                            enabled: true,
+                            delay: 150
+                        },
+                        dynamicAnimation: {
+                            enabled: true,
+                            speed: 350
+                        }
+                    },
+                    fontFamily: 'Inter, sans-serif'
+                },
+                colors: [ds.color],
+                fill: type === 'line' ? {
+                    type: 'gradient',
+                    gradient: {
+                        shadeIntensity: 1,
+                        opacityFrom: 0.4,
+                        opacityTo: 0.1,
+                        stops: [0, 90, 100]
+                    }
+                } : {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'light',
+                        type: 'vertical',
+                        shadeIntensity: 0.25,
+                        gradientToColors: undefined,
+                        inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 0.85,
+                        stops: [0, 100]
+                    }
+                },
+                stroke: {
+                    curve: 'smooth',
+                    width: type === 'line' ? 3 : 0
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                xaxis: {
+                    categories: categories,
+                    labels: {
+                        rotate: -45,
+                        rotateAlways: false,
+                        style: {
+                            fontSize: '11px',
+                            colors: '#6b7280'
+                        }
+                    },
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        style: {
+                            colors: '#6b7280'
+                        },
+                        formatter: (val) => val.toLocaleString()
+                    }
+                },
+                grid: {
+                    borderColor: '#e5e7eb',
+                    strokeDashArray: 4,
+                    xaxis: {
+                        lines: {
+                            show: false
+                        }
+                    }
+                },
+                tooltip: {
+                    theme: 'light',
+                    y: {
+                        formatter: (val) => val.toLocaleString()
+                    },
+                    marker: {
+                        show: true
+                    }
+                },
+                markers: type === 'line' ? {
+                    size: 4,
+                    colors: [ds.color],
+                    strokeColors: '#fff',
+                    strokeWidth: 2,
+                    hover: {
+                        size: 7
+                    }
+                } : {},
+                plotOptions: type === 'bar' ? {
+                    bar: {
+                        borderRadius: 6,
+                        columnWidth: '60%'
+                    }
+                } : {}
+            };
+        }
+
+        // Initialize all charts
+        function initCharts() {
+            for (let i = 0; i < 4; i++) {
+                const options = getChartOptions(i, 'line');
+                charts[i] = new ApexCharts(document.querySelector(`#chart${i}`), options);
+                charts[i].render();
+            }
+        }
+
+        // Toggle individual chart type
+        function toggleChartType(index, type) {
+            chartTypes[index] = type;
+            
+            // Update button states
+            const buttons = document.querySelectorAll(`.chart-toggle-${index}`);
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                btn.style.background = 'white';
+                btn.style.color = '#4b5563';
+            });
+            
+            const activeBtn = type === 'line' ? buttons[0] : buttons[1];
+            activeBtn.classList.add('active');
+            
+            // Update chart
+            charts[index].updateOptions(getChartOptions(index, type));
+        }
+
+        // Set global chart type
+        function setGlobalChartType(type) {
+            // Update global buttons
+            const lineBtn = document.getElementById('globalLineBtn');
+            const barBtn = document.getElementById('globalBarBtn');
+            
+            if (type === 'line') {
+                lineBtn.classList.add('active');
+                barBtn.classList.remove('active');
+                barBtn.style.background = 'white';
+                barBtn.style.color = '#374151';
+            } else {
+                barBtn.classList.add('active');
+                lineBtn.classList.remove('active');
+                lineBtn.style.background = 'white';
+                lineBtn.style.color = '#374151';
+            }
+            
+            // Update all charts
+            for (let i = 0; i < 4; i++) {
+                toggleChartType(i, type);
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            renderSummaryStats();
+            initCharts();
+        });
+    </script>
+</body>
+</html>

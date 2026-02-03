@@ -105,6 +105,101 @@
                 <div id="chart3" class="w-full"></div>
             </div>
         </div>
+
+        <!-- Year-over-Year Comparison Section -->
+        <div class="mt-12 mb-8">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900">Year-over-Year Comparison</h2>
+                    <p class="text-sm text-gray-500 mt-1">FY24-25 (Mar 2024 - Feb 2025) vs FY25-26 (Mar 2025 - Jan 2026)</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-indigo-500"></span>
+                        <span class="text-sm text-gray-600">FY24-25</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                        <span class="text-sm text-gray-600">FY25-26</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Year Comparison Charts Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- YoY Chart 1: Total L2/L1 cases -->
+            <div class="chart-card bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-semibold text-gray-800">Total L2/L1 Cases - YoY</h2>
+                    <div class="flex gap-1">
+                        <button onclick="toggleYoyChartType(0, 'line')" class="yoy-toggle-0 toggle-btn active px-3 py-1 rounded-md text-xs font-medium border border-gray-200 transition-all">Line</button>
+                        <button onclick="toggleYoyChartType(0, 'bar')" class="yoy-toggle-0 toggle-btn px-3 py-1 rounded-md text-xs font-medium border border-gray-200 transition-all bg-white text-gray-600">Bar</button>
+                    </div>
+                </div>
+                <div id="yoyChart0" class="w-full"></div>
+            </div>
+
+            <!-- YoY Chart 2: COLA(ALL)+LI(CLGR) -->
+            <div class="chart-card bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-semibold text-gray-800">COLA(ALL) + LI(CLGR) - YoY</h2>
+                    <div class="flex gap-1">
+                        <button onclick="toggleYoyChartType(1, 'line')" class="yoy-toggle-1 toggle-btn active px-3 py-1 rounded-md text-xs font-medium border border-gray-200 transition-all">Line</button>
+                        <button onclick="toggleYoyChartType(1, 'bar')" class="yoy-toggle-1 toggle-btn px-3 py-1 rounded-md text-xs font-medium border border-gray-200 transition-all bg-white text-gray-600">Bar</button>
+                    </div>
+                </div>
+                <div id="yoyChart1" class="w-full"></div>
+            </div>
+
+            <!-- YoY Chart 3: BM UR -->
+            <div class="chart-card bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-semibold text-gray-800">BM UR - YoY</h2>
+                    <div class="flex gap-1">
+                        <button onclick="toggleYoyChartType(2, 'line')" class="yoy-toggle-2 toggle-btn active px-3 py-1 rounded-md text-xs font-medium border border-gray-200 transition-all">Line</button>
+                        <button onclick="toggleYoyChartType(2, 'bar')" class="yoy-toggle-2 toggle-btn px-3 py-1 rounded-md text-xs font-medium border border-gray-200 transition-all bg-white text-gray-600">Bar</button>
+                    </div>
+                </div>
+                <div id="yoyChart2" class="w-full"></div>
+            </div>
+
+            <!-- YoY Chart 4: BM IMR -->
+            <div class="chart-card bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-semibold text-gray-800">BM IMR - YoY</h2>
+                    <div class="flex gap-1">
+                        <button onclick="toggleYoyChartType(3, 'line')" class="yoy-toggle-3 toggle-btn active px-3 py-1 rounded-md text-xs font-medium border border-gray-200 transition-all">Line</button>
+                        <button onclick="toggleYoyChartType(3, 'bar')" class="yoy-toggle-3 toggle-btn px-3 py-1 rounded-md text-xs font-medium border border-gray-200 transition-all bg-white text-gray-600">Bar</button>
+                    </div>
+                </div>
+                <div id="yoyChart3" class="w-full"></div>
+            </div>
+        </div>
+
+        <!-- Yearly Totals Comparison Section -->
+        <div class="mt-12 mb-6">
+            <h2 class="text-2xl font-bold text-gray-900">Yearly Totals Comparison</h2>
+            <p class="text-sm text-gray-500 mt-1">Sum of all values per category: FY24-25 (12 months) vs FY25-26 (11 months)</p>
+        </div>
+
+        <!-- Yearly Totals Chart -->
+        <div class="chart-card bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-semibold text-gray-800">All Categories - Yearly Totals</h2>
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-indigo-500"></span>
+                        <span class="text-sm text-gray-600">FY24-25</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                        <span class="text-sm text-gray-600">FY25-26</span>
+                    </div>
+                </div>
+            </div>
+            <div id="yearlyTotalsChart" class="w-full"></div>
+        </div>
     </main>
 
     <!-- Footer -->
@@ -129,6 +224,8 @@
             { time: "Dec 2024", l2l1: 843, cola: 2037, bmur: 190, bmimr: 64 },
             { time: "Jan 2025", l2l1: 777, cola: 1604, bmur: 164, bmimr: 47 },
             { time: "Feb 2025", l2l1: 694, cola: 1743, bmur: 186, bmimr: 40 },
+
+
             { time: "Mar 2025", l2l1: 795, cola: 2171, bmur: 187, bmimr: 50 },
             { time: "Apr 2025", l2l1: 703, cola: 2091, bmur: 241, bmimr: 65 },
             { time: "May 2025", l2l1: 575, cola: 2248, bmur: 203, bmimr: 48 },
@@ -383,10 +480,368 @@
             }
         }
 
+        // ==========================================
+        // YEAR-OVER-YEAR COMPARISON DATA & CHARTS
+        // ==========================================
+
+        // Fiscal year months (Mar to Feb)
+        const fyMonths = ['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb'];
+
+        // FY24-25: Mar 2024 to Feb 2025 (indices 0-11 in rawData)
+        const fy2425 = rawData.slice(0, 12);
+
+        // FY25-26: Mar 2025 to Jan 2026 (indices 12-22 in rawData) - only 11 months available
+        const fy2526 = rawData.slice(12, 23);
+
+        // Year-over-year datasets
+        const yoyDatasets = [
+            {
+                name: "Total L2/L1 Cases",
+                fy2425: fy2425.map(d => d.l2l1),
+                fy2526: fy2526.map(d => d.l2l1),
+                color1: "#6366f1",
+                color2: "#10b981"
+            },
+            {
+                name: "COLA(ALL) + LI(CLGR)",
+                fy2425: fy2425.map(d => d.cola),
+                fy2526: fy2526.map(d => d.cola),
+                color1: "#8b5cf6",
+                color2: "#10b981"
+            },
+            {
+                name: "BM UR",
+                fy2425: fy2425.map(d => d.bmur),
+                fy2526: fy2526.map(d => d.bmur),
+                color1: "#06b6d4",
+                color2: "#10b981"
+            },
+            {
+                name: "BM IMR",
+                fy2425: fy2425.map(d => d.bmimr),
+                fy2526: fy2526.map(d => d.bmimr),
+                color1: "#f59e0b",
+                color2: "#10b981"
+            }
+        ];
+
+        // YoY Chart instances
+        let yoyCharts = [];
+        let yoyChartTypes = ['line', 'line', 'line', 'line'];
+
+        // Create YoY chart options
+        function getYoyChartOptions(index, type) {
+            const ds = yoyDatasets[index];
+            return {
+                series: [
+                    {
+                        name: "FY24-25",
+                        data: ds.fy2425
+                    },
+                    {
+                        name: "FY25-26",
+                        data: ds.fy2526
+                    }
+                ],
+                chart: {
+                    type: type,
+                    height: 320,
+                    toolbar: {
+                        show: true,
+                        tools: {
+                            download: true,
+                            selection: true,
+                            zoom: true,
+                            zoomin: true,
+                            zoomout: true,
+                            pan: true,
+                            reset: true
+                        }
+                    },
+                    animations: {
+                        enabled: true,
+                        easing: 'easeinout',
+                        speed: 800,
+                        animateGradually: {
+                            enabled: true,
+                            delay: 150
+                        },
+                        dynamicAnimation: {
+                            enabled: true,
+                            speed: 350
+                        }
+                    },
+                    fontFamily: 'Inter, sans-serif'
+                },
+                colors: [ds.color1, ds.color2],
+                fill: type === 'line' ? {
+                    type: 'gradient',
+                    gradient: {
+                        shadeIntensity: 1,
+                        opacityFrom: 0.3,
+                        opacityTo: 0.05,
+                        stops: [0, 90, 100]
+                    }
+                } : {
+                    type: 'solid',
+                    opacity: 0.9
+                },
+                stroke: {
+                    curve: 'smooth',
+                    width: type === 'line' ? 3 : 0
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                legend: {
+                    position: 'top',
+                    horizontalAlign: 'right',
+                    fontSize: '12px',
+                    markers: {
+                        width: 10,
+                        height: 10,
+                        radius: 12
+                    }
+                },
+                xaxis: {
+                    categories: fyMonths,
+                    labels: {
+                        style: {
+                            fontSize: '11px',
+                            colors: '#6b7280'
+                        }
+                    },
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        style: {
+                            colors: '#6b7280'
+                        },
+                        formatter: (val) => val ? val.toLocaleString() : ''
+                    }
+                },
+                grid: {
+                    borderColor: '#e5e7eb',
+                    strokeDashArray: 4,
+                    xaxis: {
+                        lines: {
+                            show: false
+                        }
+                    }
+                },
+                tooltip: {
+                    theme: 'light',
+                    shared: true,
+                    intersect: false,
+                    y: {
+                        formatter: (val) => val ? val.toLocaleString() : 'N/A'
+                    }
+                },
+                markers: type === 'line' ? {
+                    size: 5,
+                    strokeColors: '#fff',
+                    strokeWidth: 2,
+                    hover: {
+                        size: 8
+                    }
+                } : {},
+                plotOptions: type === 'bar' ? {
+                    bar: {
+                        borderRadius: 4,
+                        columnWidth: '70%',
+                        dataLabels: {
+                            position: 'top'
+                        }
+                    }
+                } : {}
+            };
+        }
+
+        // Initialize YoY charts
+        function initYoyCharts() {
+            for (let i = 0; i < 4; i++) {
+                const options = getYoyChartOptions(i, 'line');
+                yoyCharts[i] = new ApexCharts(document.querySelector(`#yoyChart${i}`), options);
+                yoyCharts[i].render();
+            }
+        }
+
+        // Toggle YoY chart type
+        function toggleYoyChartType(index, type) {
+            yoyChartTypes[index] = type;
+            
+            // Update button states
+            const buttons = document.querySelectorAll(`.yoy-toggle-${index}`);
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                btn.style.background = 'white';
+                btn.style.color = '#4b5563';
+            });
+            
+            const activeBtn = type === 'line' ? buttons[0] : buttons[1];
+            activeBtn.classList.add('active');
+            
+            // Update chart
+            yoyCharts[index].updateOptions(getYoyChartOptions(index, type));
+        }
+
+        // ==========================================
+        // YEARLY TOTALS COMPARISON CHART
+        // ==========================================
+
+        // Calculate yearly sums
+        const fy2425Sums = {
+            l2l1: fy2425.reduce((sum, d) => sum + d.l2l1, 0),
+            cola: fy2425.reduce((sum, d) => sum + d.cola, 0),
+            bmur: fy2425.reduce((sum, d) => sum + d.bmur, 0),
+            bmimr: fy2425.reduce((sum, d) => sum + d.bmimr, 0)
+        };
+
+        const fy2526Sums = {
+            l2l1: fy2526.reduce((sum, d) => sum + d.l2l1, 0),
+            cola: fy2526.reduce((sum, d) => sum + d.cola, 0),
+            bmur: fy2526.reduce((sum, d) => sum + d.bmur, 0),
+            bmimr: fy2526.reduce((sum, d) => sum + d.bmimr, 0)
+        };
+
+        let yearlyTotalsChart;
+
+        function initYearlyTotalsChart() {
+            const options = {
+                series: [
+                    {
+                        name: 'FY24-25',
+                        data: [fy2425Sums.l2l1, fy2425Sums.cola, fy2425Sums.bmur, fy2425Sums.bmimr]
+                    },
+                    {
+                        name: 'FY25-26',
+                        data: [fy2526Sums.l2l1, fy2526Sums.cola, fy2526Sums.bmur, fy2526Sums.bmimr]
+                    }
+                ],
+                chart: {
+                    type: 'bar',
+                    height: 400,
+                    toolbar: {
+                        show: true,
+                        tools: {
+                            download: true
+                        }
+                    },
+                    animations: {
+                        enabled: true,
+                        easing: 'easeinout',
+                        speed: 800
+                    },
+                    fontFamily: 'Inter, sans-serif'
+                },
+                colors: ['#6366f1', '#10b981'],
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'light',
+                        type: 'vertical',
+                        shadeIntensity: 0.25,
+                        gradientToColors: ['#818cf8', '#34d399'],
+                        inverseColors: false,
+                        opacityFrom: 1,
+                        opacityTo: 0.85,
+                        stops: [0, 100]
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '60%',
+                        borderRadius: 8,
+                        dataLabels: {
+                            position: 'top'
+                        }
+                    }
+                },
+                dataLabels: {
+                    enabled: true,
+                    formatter: function(val) {
+                        return val.toLocaleString();
+                    },
+                    offsetY: -20,
+                    style: {
+                        fontSize: '11px',
+                        fontWeight: 600,
+                        colors: ['#374151']
+                    }
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['transparent']
+                },
+                xaxis: {
+                    categories: ['Total L2/L1 Cases', 'COLA(ALL) + LI(CLGR)', 'BM UR', 'BM IMR'],
+                    labels: {
+                        style: {
+                            fontSize: '12px',
+                            fontWeight: 500,
+                            colors: '#374151'
+                        }
+                    },
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        style: {
+                            colors: '#6b7280'
+                        },
+                        formatter: (val) => val.toLocaleString()
+                    }
+                },
+                grid: {
+                    borderColor: '#e5e7eb',
+                    strokeDashArray: 4
+                },
+                tooltip: {
+                    theme: 'light',
+                    shared: true,
+                    intersect: false,
+                    y: {
+                        formatter: function(val) {
+                            return val.toLocaleString();
+                        }
+                    }
+                },
+                legend: {
+                    position: 'top',
+                    horizontalAlign: 'center',
+                    fontSize: '13px',
+                    fontWeight: 500,
+                    markers: {
+                        width: 12,
+                        height: 12,
+                        radius: 12
+                    }
+                }
+            };
+
+            yearlyTotalsChart = new ApexCharts(document.querySelector('#yearlyTotalsChart'), options);
+            yearlyTotalsChart.render();
+        }
+
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
             renderSummaryStats();
             initCharts();
+            initYoyCharts();
+            initYearlyTotalsChart();
         });
     </script>
 </body>
